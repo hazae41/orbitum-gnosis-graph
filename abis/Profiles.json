@@ -1,38 +1,21 @@
 [
   {
-    "inputs": [],
-    "stateMutability": "nonpayable",
-    "type": "constructor"
-  },
-  {
     "anonymous": false,
     "inputs": [
       {
         "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "topic",
-        "type": "uint256"
-      },
-      {
-        "indexed": true,
         "internalType": "address",
-        "name": "author",
+        "name": "id",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "string",
-        "name": "text",
+        "name": "avatar",
         "type": "string"
       }
     ],
-    "name": "Post",
+    "name": "Avatar",
     "type": "event"
   },
   {
@@ -40,66 +23,53 @@
     "inputs": [
       {
         "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": true,
         "internalType": "address",
-        "name": "author",
+        "name": "id",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "string",
-        "name": "forum",
+        "name": "description",
         "type": "string"
+      }
+    ],
+    "name": "Description",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "id",
+        "type": "address"
       },
       {
         "indexed": false,
         "internalType": "string",
-        "name": "title",
+        "name": "nickname",
         "type": "string"
       }
     ],
-    "name": "Topic",
+    "name": "Nickname",
     "type": "event"
   },
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "topic",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "post",
-        "type": "uint256"
-      },
-      {
         "internalType": "address",
-        "name": "author",
+        "name": "id",
         "type": "address"
       },
       {
         "internalType": "string",
-        "name": "forum",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "title",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "text",
+        "name": "avatar",
         "type": "string"
       }
     ],
-    "name": "create",
+    "name": "setAvatar",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -107,27 +77,35 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "topic",
-        "type": "uint256"
-      },
-      {
         "internalType": "address",
-        "name": "author",
+        "name": "id",
         "type": "address"
       },
       {
         "internalType": "string",
-        "name": "text",
+        "name": "description",
         "type": "string"
       }
     ],
-    "name": "reply",
+    "name": "setDescription",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "id",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "nickname",
+        "type": "string"
+      }
+    ],
+    "name": "setNickname",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -144,5 +122,10 @@
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
+  },
+  {
+    "inputs": [],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
   }
 ]

@@ -1,6 +1,26 @@
-type ExampleEntity @entity {
+type Profile @entity {
   id: ID!
-  count: BigInt!
-  id: String! # string
-  topic: String! # string
+  address: String!
+  nickname: String
+  avatar: String
+  description: String
+}
+
+type Forum @entity {
+  id: ID!
+  name: String!
+}
+
+type Topic @entity {
+  id: ID!
+  forum: ID!
+  author: Profile!
+  title: String!
+}
+
+type Post @entity {
+  id: ID!
+  topic: Topic!
+  author: Profile!
+  text: String!
 }
