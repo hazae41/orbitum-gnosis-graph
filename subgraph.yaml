@@ -1,0 +1,26 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Gateway
+    network: xdai
+    source:
+      address: "0x456F5b948900164dBa7d06c1593fB5048229AB39"
+      abi: Gateway
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Post
+        - Topic
+      abis:
+        - name: Gateway
+          file: ./abis/Gateway.json
+      eventHandlers:
+        - event: Post(indexed string,indexed string,indexed address,string)
+          handler: handlePost
+        - event: Topic(indexed string,indexed string,indexed address,string,string)
+          handler: handleTopic
+      file: ./src/gateway.ts
