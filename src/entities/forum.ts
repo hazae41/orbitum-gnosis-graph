@@ -1,6 +1,6 @@
 import { Forum } from "../../generated/schema"
 
-export function getForumFromName(name: string): Forum {
+export function getOrCreateForumFromName(name: string): Forum {
   let forum = Forum.load(name)
   if (forum) return forum
 

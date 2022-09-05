@@ -13,13 +13,16 @@ type Forum @entity {
 
 type Topic @entity {
   id: ID!
-  forum: ID!
+  forum: Forum!
   author: Profile!
   title: String!
+  first: Post!
+  last: Post!
 }
 
 type Post @entity {
   id: ID!
+  forum: Forum!
   topic: Topic!
   author: Profile!
   text: String!

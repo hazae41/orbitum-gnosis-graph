@@ -1,22 +1,17 @@
 [
   {
-    "inputs": [],
-    "stateMutability": "nonpayable",
-    "type": "constructor"
-  },
-  {
     "anonymous": false,
     "inputs": [
       {
         "indexed": true,
         "internalType": "uint256",
-        "name": "id",
+        "name": "topic",
         "type": "uint256"
       },
       {
         "indexed": true,
         "internalType": "uint256",
-        "name": "topic",
+        "name": "post",
         "type": "uint256"
       },
       {
@@ -41,7 +36,13 @@
       {
         "indexed": true,
         "internalType": "uint256",
-        "name": "id",
+        "name": "topic",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "post",
         "type": "uint256"
       },
       {
@@ -60,6 +61,12 @@
         "indexed": false,
         "internalType": "string",
         "name": "title",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "text",
         "type": "string"
       }
     ],
@@ -108,12 +115,12 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "id",
+        "name": "topic",
         "type": "uint256"
       },
       {
         "internalType": "uint256",
-        "name": "topic",
+        "name": "post",
         "type": "uint256"
       },
       {

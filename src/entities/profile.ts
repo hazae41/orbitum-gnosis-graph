@@ -1,6 +1,6 @@
 import { Profile } from "../../generated/schema"
 
-export function getProfileFromAddress(address: string): Profile {
+export function getOrCreateProfileFromAddress(address: string): Profile {
   let profile = Profile.load(address)
   if (profile) return profile
 
