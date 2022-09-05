@@ -66,6 +66,12 @@
       {
         "indexed": false,
         "internalType": "string",
+        "name": "forum",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
         "name": "text",
         "type": "string"
       }
@@ -127,6 +133,11 @@
         "internalType": "address",
         "name": "author",
         "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "forum",
+        "type": "string"
       },
       {
         "internalType": "string",

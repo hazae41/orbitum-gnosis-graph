@@ -6,9 +6,9 @@ dataSources:
     name: Gateway
     network: xdai
     source:
-      address: "0xe3979DF5E739aE2A499467706630D3FC1Ba6820A"
+      address: "0x432D7e2e6b0a1EED9B521520604101194E853026"
       abi: Gateway
-      startBlock: 24049315
+      startBlock: 24049791
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -22,7 +22,7 @@ dataSources:
       eventHandlers:
         - event: Created(indexed uint256,indexed uint256,indexed address,string,string,string)
           handler: handleCreated
-        - event: Replied(indexed uint256,indexed uint256,indexed address,string)
+        - event: Replied(indexed uint256,indexed uint256,indexed address,string,string)
           handler: handleReplied
       file: ./src/gateway.ts
   - kind: ethereum

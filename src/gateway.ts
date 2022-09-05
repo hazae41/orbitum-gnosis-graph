@@ -14,15 +14,15 @@ export function handleCreated(event: Created): void {
   const topic = new Topic(topicid)
   const post = new Post(postid)
 
-  topic.forum = forum
   topic.author = author
+  topic.forum = forum
   topic.title = title
   topic.first = postid
   topic.last = postid
 
   post.topic = topicid
-  post.forum = forum
   post.author = author
+  post.forum = forum
   post.text = text
 
   getOrCreateForumFromName(topic.forum)
@@ -36,15 +36,14 @@ export function handleReplied(event: Replied): void {
   const topicid = event.params.topic.toString()
   const postid = event.params.post.toString()
   const author = event.params.author.toHex()
+  const forum = event.params.forum
   const text = event.params.text
 
   const post = new Post(postid)
-  const topic = Topic.load(topicid)
-  if (!topic) return
 
-  post.forum = topic.forum
   post.topic = topicid
   post.author = author
+  post.forum = forum
   post.text = text
 
   getOrCreateProfileFromAddress(post.author)
