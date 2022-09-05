@@ -46,6 +46,7 @@ export function handleReplied(event: Replied): void {
   post.forum = forum
   post.text = text
 
+  getOrCreateForumFromName(forum)
   getOrCreateProfileFromAddress(author)
 
   post.save()
