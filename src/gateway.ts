@@ -1,9 +1,9 @@
-import { Post as PostEvent, Topic as TopicEvent } from "../generated/Gateway/Gateway"
+import { Created, Replied } from "../generated/Gateway/Gateway"
 import { Post, Topic } from "../generated/schema"
 import { getOrCreateForumFromName } from "./entities/forum"
 import { getOrCreateProfileFromAddress } from "./entities/profile"
 
-export function handleTopic(event: TopicEvent): void {
+export function handleCreated(event: Created): void {
   const topicid = event.params.topic.toString()
   const postid = event.params.post.toString()
   const author = event.params.author.toHex()
@@ -32,7 +32,7 @@ export function handleTopic(event: TopicEvent): void {
   post.save()
 }
 
-export function handlePost(event: PostEvent): void {
+export function handleReplied(event: Replied): void {
   const topicid = event.params.topic.toString()
   const postid = event.params.post.toString()
   const author = event.params.author.toHex()

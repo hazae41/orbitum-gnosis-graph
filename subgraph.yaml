@@ -6,9 +6,9 @@ dataSources:
     name: Gateway
     network: xdai
     source:
-      address: "0x7222cd9d408601390ba382ebb58276185df5f57b"
+      address: "0xe3979DF5E739aE2A499467706630D3FC1Ba6820A"
       abi: Gateway
-      startBlock: 24048741
+      startBlock: 24049315
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -20,10 +20,10 @@ dataSources:
         - name: Gateway
           file: ./abis/Gateway.json
       eventHandlers:
-        - event: Post(indexed uint256,indexed uint256,indexed address,string)
-          handler: handlePost
-        - event: Topic(indexed uint256,indexed uint256,indexed address,string,string,string)
-          handler: handleTopic
+        - event: Created(indexed uint256,indexed uint256,indexed address,string,string,string)
+          handler: handleCreated
+        - event: Replied(indexed uint256,indexed uint256,indexed address,string)
+          handler: handleReplied
       file: ./src/gateway.ts
   - kind: ethereum
     name: Profiles
@@ -49,3 +49,33 @@ dataSources:
         - event: Nickname(indexed address,string)
           handler: handleNickname
       file: ./src/profiles.ts
+  - kind: ethereum
+    name: Forums
+    network: xdai
+    source:
+      address: "0x151db52ADb5AE7878e5F10b87c1a00b8Fa41eA1a"
+      abi: Forums
+      startBlock: 24049395
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Forum
+      abis:
+        - name: Forums
+          file: ./abis/Forums.json
+      eventHandlers:
+        - event: Avatar(string,string)
+          handler: handleAvatar
+        - event: Description(string,string)
+          handler: handleDescription
+        - event: NSFW(string,bool)
+          handler: handleNSFW
+        - event: Ownership(string,indexed address)
+          handler: handleOwnership
+        - event: Promoted(string,indexed address)
+          handler: handlePromoted
+        - event: Unpromoted(string,indexed address)
+          handler: handleUnpromoted
+      file: ./src/forums.ts

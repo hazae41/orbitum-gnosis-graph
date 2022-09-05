@@ -7,6 +7,7 @@ export function getOrCreateForumFromName(name: string): Forum {
   forum = new Forum(name)
 
   forum.name = name
+  forum.mods = []
 
   forum.save()
 

@@ -23,11 +23,23 @@
       {
         "indexed": false,
         "internalType": "string",
+        "name": "forum",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
         "name": "text",
         "type": "string"
       }
     ],
-    "name": "Post",
+    "name": "Created",
     "type": "event"
   },
   {
@@ -54,23 +66,11 @@
       {
         "indexed": false,
         "internalType": "string",
-        "name": "forum",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "title",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
         "name": "text",
         "type": "string"
       }
     ],
-    "name": "Topic",
+    "name": "Replied",
     "type": "event"
   },
   {

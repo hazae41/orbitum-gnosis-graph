@@ -9,6 +9,11 @@ type Profile @entity {
 type Forum @entity {
   id: ID!
   name: String!
+  avatar: String
+  description: String
+  nsfw: Boolean,
+  owner: Bytes
+  mods: [Bytes!]!
 }
 
 type Topic @entity {
