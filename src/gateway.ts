@@ -25,8 +25,8 @@ export function handleCreated(event: Created): void {
   post.forum = forum
   post.text = text
 
-  getOrCreateForumFromName(topic.forum)
-  getOrCreateProfileFromAddress(post.author)
+  getOrCreateForumFromName(forum)
+  getOrCreateProfileFromAddress(author)
 
   topic.save()
   post.save()
@@ -46,7 +46,7 @@ export function handleReplied(event: Replied): void {
   post.forum = forum
   post.text = text
 
-  getOrCreateProfileFromAddress(post.author)
+  getOrCreateProfileFromAddress(author)
 
   post.save()
 }

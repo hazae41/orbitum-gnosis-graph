@@ -18,17 +18,17 @@ type Forum @entity {
 
 type Topic @entity {
   id: ID!
-  forum: Forum!
-  author: Profile!
+  forum: Forum
+  author: Profile
   title: String!
-  first: Post!
-  last: Post!
+  first: Post
+  last: Post
 }
 
 type Post @entity {
   id: ID!
-  forum: Forum!
-  topic: Topic!
-  author: Profile!
+  forum: Forum
+  topic: Topic
+  author: Profile
   text: String!
 }
