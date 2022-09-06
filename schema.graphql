@@ -18,6 +18,7 @@ type Forum @entity {
 
 type Topic @entity {
   id: ID!
+  time: BigInt!
   forum: Forum
   author: Profile
   title: String!
@@ -27,6 +28,7 @@ type Topic @entity {
 
 type Post @entity {
   id: ID!
+  time: BigInt!
   forum: Forum
   topic: Topic
   author: Profile
