@@ -12,25 +12,27 @@ type Forum @entity {
   avatar: String
   description: String
   nsfw: Boolean,
-  owner: Bytes
-  mods: [Bytes!]!
+  owner: Profile
+  mods: [Profile!]!
 }
 
 type Topic @entity {
   id: ID!
-  time: BigInt!
   forum: Forum
   author: Profile
   title: String!
   first: Post
   last: Post
+  count: Int!
+  created: BigInt!
+  replied: BigInt
 }
 
 type Post @entity {
   id: ID!
-  time: BigInt!
   forum: Forum
   topic: Topic
   author: Profile
   text: String!
+  created: BigInt!
 }
