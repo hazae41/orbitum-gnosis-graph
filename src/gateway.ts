@@ -6,9 +6,9 @@ import { getOrCreateProfileFromAddress } from "./entities/profile"
 export function handleCreated(event: Created): void {
   const topicid = event.params.topic.toString()
   const postid = event.params.post.toString()
-  const author = event.params.author.toHex()
+  const authorid = event.params.author.toHex()
+  const forumid = event.params.forum
   const time = event.params.time
-  const forum = event.params.forum
   const title = event.params.title
   const text = event.params.text
 
@@ -17,34 +17,42 @@ export function handleCreated(event: Created): void {
   const topic = new Topic(topicid)
   const post = new Post(postid)
 
-  topic.author = author
-  topic.forum = forum
+  const forum = getOrCreateForumFromName(forumid, time)
+  const author = getOrCreateProfileFromAddress(authorid, time)
+
+  forum.count = forum.count + 1
+  forum.updated = time
+
+  author.count = author.count + 1
+  author.updated = time
+
+  topic.author = authorid
+  topic.forum = forumid
   topic.title = title
   topic.first = postid
   topic.last = postid
   topic.count = 0
   topic.created = time
-  topic.replied = time
+  topic.updated = time
 
   post.topic = topicid
-  post.author = author
-  post.forum = forum
+  post.author = authorid
+  post.forum = forumid
   post.text = text
   post.created = time
 
-  getOrCreateForumFromName(forum)
-  getOrCreateProfileFromAddress(author)
-
   topic.save()
   post.save()
+  forum.save()
+  author.save()
 }
 
 export function handleReplied(event: Replied): void {
   const topicid = event.params.topic.toString()
   const postid = event.params.post.toString()
-  const author = event.params.author.toHex()
+  const authorid = event.params.author.toHex()
+  const forumid = event.params.forum
   const time = event.params.time
-  const forum = event.params.forum
   const text = event.params.text
 
   if (Post.load(postid)) return
@@ -53,20 +61,28 @@ export function handleReplied(event: Replied): void {
   const topic = Topic.load(topicid)
   if (!topic) return
 
+  const forum = getOrCreateForumFromName(forumid, time)
+  const author = getOrCreateProfileFromAddress(authorid, time)
+
+  forum.count = forum.count + 1
+  forum.updated = time
+
+  author.count = author.count + 1
+  author.updated = time
+
   topic.count = topic.count + 1
-  topic.replied = time
+  topic.updated = time
 
   post.topic = topicid
-  post.author = author
-  post.forum = forum
+  post.author = authorid
+  post.forum = forumid
   post.text = text
   post.created = time
 
-  getOrCreateForumFromName(forum)
-  getOrCreateProfileFromAddress(author)
-
   topic.save()
   post.save()
+  forum.save()
+  author.save()
 }
 
 

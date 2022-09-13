@@ -5,7 +5,7 @@ import {
 import { getOrCreateForumFromName } from "./entities/forum"
 
 export function handleAvatar(event: Avatar): void {
-  const forum = getOrCreateForumFromName(event.params.name)
+  const forum = getOrCreateForumFromName(event.params.name, event.block.timestamp)
   const avatar = event.params.avatar
 
   forum.avatar = avatar
@@ -13,7 +13,7 @@ export function handleAvatar(event: Avatar): void {
 }
 
 export function handleDescription(event: Description): void {
-  const forum = getOrCreateForumFromName(event.params.name)
+  const forum = getOrCreateForumFromName(event.params.name, event.block.timestamp)
   const description = event.params.description
 
   forum.description = description
@@ -21,7 +21,7 @@ export function handleDescription(event: Description): void {
 }
 
 export function handleNSFW(event: NSFW): void {
-  const forum = getOrCreateForumFromName(event.params.name)
+  const forum = getOrCreateForumFromName(event.params.name, event.block.timestamp)
   const nsfw = event.params.nsfw
 
   forum.nsfw = nsfw
@@ -29,7 +29,7 @@ export function handleNSFW(event: NSFW): void {
 }
 
 export function handleOwnership(event: Ownership): void {
-  const forum = getOrCreateForumFromName(event.params.name)
+  const forum = getOrCreateForumFromName(event.params.name, event.block.timestamp)
   const owner = event.params.owner.toHex()
 
   forum.owner = owner
@@ -37,7 +37,7 @@ export function handleOwnership(event: Ownership): void {
 }
 
 export function handlePromoted(event: Promoted): void {
-  const forum = getOrCreateForumFromName(event.params.name)
+  const forum = getOrCreateForumFromName(event.params.name, event.block.timestamp)
   const moderator = event.params.moderator.toHex()
 
   const mods = forum.mods
@@ -48,7 +48,7 @@ export function handlePromoted(event: Promoted): void {
 }
 
 export function handleUnpromoted(event: Unpromoted): void {
-  const forum = getOrCreateForumFromName(event.params.name)
+  const forum = getOrCreateForumFromName(event.params.name, event.block.timestamp)
   const moderator = event.params.moderator.toHex()
 
   const mods = forum.mods

@@ -1,6 +1,7 @@
+import { BigInt } from "@graphprotocol/graph-ts"
 import { Forum } from "../../generated/schema"
 
-export function getOrCreateForumFromName(name: string): Forum {
+export function getOrCreateForumFromName(name: string, time: BigInt): Forum {
   let forum = Forum.load(name)
   if (forum) return forum
 
@@ -8,6 +9,9 @@ export function getOrCreateForumFromName(name: string): Forum {
 
   forum.name = name
   forum.mods = []
+  forum.count = 0
+  forum.created = time
+  forum.updated = time
 
   forum.save()
 

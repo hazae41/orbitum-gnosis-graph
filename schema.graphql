@@ -4,6 +4,9 @@ type Profile @entity {
   nickname: String
   avatar: String
   description: String
+  count: Int!
+  created: BigInt!
+  updated: BigInt!
 }
 
 type Forum @entity {
@@ -14,6 +17,9 @@ type Forum @entity {
   nsfw: Boolean,
   owner: Profile
   mods: [Profile!]!
+  count: Int!
+  created: BigInt!
+  updated: BigInt!
 }
 
 type Topic @entity {
@@ -25,7 +31,7 @@ type Topic @entity {
   last: Post
   count: Int!
   created: BigInt!
-  replied: BigInt
+  updated: BigInt!
 }
 
 type Post @entity {
