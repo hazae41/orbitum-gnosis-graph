@@ -24,6 +24,7 @@ export function handleCreated(event: Created): void {
   topic.last = postid
   topic.count = 0
   topic.created = time
+  topic.replied = time
 
   post.topic = topicid
   post.author = author
