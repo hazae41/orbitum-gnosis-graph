@@ -31,7 +31,7 @@ dataSources:
     source:
       address: "0xa22b9D3462ad1F66E29C3Ac3eb9f005EDB3A5A23"
       abi: Profiles
-      startBlock: 24010423
+      startBlock: 24226173
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
