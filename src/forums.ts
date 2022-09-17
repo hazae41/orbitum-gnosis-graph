@@ -1,10 +1,7 @@
-import {
-  Avatar, Description, NSFW, Ownership,
-  Promoted, Unpromoted
-} from "../generated/Forums/Forums"
+import { AddressChanged, AvatarChanged, DescriptionChanged, ModeratorPromoted, ModeratorUnpromoted, NSFWChanged, OwnershipChanged } from "../generated/Forums/Forums"
 import { getOrCreateForumFromName } from "./entities/forum"
 
-export function handleAvatar(event: Avatar): void {
+export function handleAvatar(event: AvatarChanged): void {
   const forum = getOrCreateForumFromName(event.params.name, event.block.timestamp)
   const avatar = event.params.avatar
 
@@ -12,7 +9,7 @@ export function handleAvatar(event: Avatar): void {
   forum.save()
 }
 
-export function handleDescription(event: Description): void {
+export function handleDescription(event: DescriptionChanged): void {
   const forum = getOrCreateForumFromName(event.params.name, event.block.timestamp)
   const description = event.params.description
 
@@ -20,7 +17,7 @@ export function handleDescription(event: Description): void {
   forum.save()
 }
 
-export function handleNSFW(event: NSFW): void {
+export function handleNSFW(event: NSFWChanged): void {
   const forum = getOrCreateForumFromName(event.params.name, event.block.timestamp)
   const nsfw = event.params.nsfw
 
@@ -28,7 +25,7 @@ export function handleNSFW(event: NSFW): void {
   forum.save()
 }
 
-export function handleOwnership(event: Ownership): void {
+export function handleOwnership(event: OwnershipChanged): void {
   const forum = getOrCreateForumFromName(event.params.name, event.block.timestamp)
   const owner = event.params.owner.toHex()
 
@@ -36,7 +33,15 @@ export function handleOwnership(event: Ownership): void {
   forum.save()
 }
 
-export function handlePromoted(event: Promoted): void {
+export function handleAddress(event: AddressChanged): void {
+  const forum = getOrCreateForumFromName(event.params.name, event.block.timestamp)
+  const address = event.params.addr.toHex()
+
+  forum.address = address
+  forum.save()
+}
+
+export function handlePromoted(event: ModeratorPromoted): void {
   const forum = getOrCreateForumFromName(event.params.name, event.block.timestamp)
   const moderator = event.params.moderator.toHex()
 
@@ -47,7 +52,7 @@ export function handlePromoted(event: Promoted): void {
   forum.save()
 }
 
-export function handleUnpromoted(event: Unpromoted): void {
+export function handleUnpromoted(event: ModeratorUnpromoted): void {
   const forum = getOrCreateForumFromName(event.params.name, event.block.timestamp)
   const moderator = event.params.moderator.toHex()
 

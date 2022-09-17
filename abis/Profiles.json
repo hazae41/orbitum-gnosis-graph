@@ -15,7 +15,7 @@
         "type": "string"
       }
     ],
-    "name": "Avatar",
+    "name": "AvatarChanged",
     "type": "event"
   },
   {
@@ -34,7 +34,7 @@
         "type": "string"
       }
     ],
-    "name": "Description",
+    "name": "DescriptionChanged",
     "type": "event"
   },
   {
@@ -53,7 +53,7 @@
         "type": "string"
       }
     ],
-    "name": "Nickname",
+    "name": "NicknameChanged",
     "type": "event"
   },
   {
@@ -122,10 +122,5 @@
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
-  },
-  {
-    "inputs": [],
-    "stateMutability": "nonpayable",
-    "type": "constructor"
   }
 ]

@@ -70,6 +70,7 @@ export function handleReplied(event: Replied): void {
   author.count = author.count + 1
   author.updated = time
 
+  topic.last = postid
   topic.count = topic.count + 1
   topic.updated = time
 

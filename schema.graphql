@@ -12,6 +12,7 @@ type Profile @entity {
 type Forum @entity {
   id: ID!
   name: String!
+  address: String
   avatar: String
   description: String
   nsfw: Boolean,

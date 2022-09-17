@@ -9,13 +9,32 @@
         "type": "string"
       },
       {
+        "indexed": true,
+        "internalType": "address",
+        "name": "addr",
+        "type": "address"
+      }
+    ],
+    "name": "AddressChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
         "indexed": false,
         "internalType": "string",
         "name": "avatar",
         "type": "string"
       }
     ],
-    "name": "Avatar",
+    "name": "AvatarChanged",
     "type": "event"
   },
   {
@@ -34,7 +53,45 @@
         "type": "string"
       }
     ],
-    "name": "Description",
+    "name": "DescriptionChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "moderator",
+        "type": "address"
+      }
+    ],
+    "name": "ModeratorPromoted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "moderator",
+        "type": "address"
+      }
+    ],
+    "name": "ModeratorUnpromoted",
     "type": "event"
   },
   {
@@ -53,7 +110,7 @@
         "type": "bool"
       }
     ],
-    "name": "NSFW",
+    "name": "NSFWChanged",
     "type": "event"
   },
   {
@@ -72,45 +129,7 @@
         "type": "address"
       }
     ],
-    "name": "Ownership",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "name",
-        "type": "string"
-      },
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "moderator",
-        "type": "address"
-      }
-    ],
-    "name": "Promoted",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "name",
-        "type": "string"
-      },
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "moderator",
-        "type": "address"
-      }
-    ],
-    "name": "Unpromoted",
+    "name": "OwnershipChanged",
     "type": "event"
   },
   {
@@ -127,6 +146,24 @@
       }
     ],
     "name": "promote",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "internalType": "address",
+        "name": "addr",
+        "type": "address"
+      }
+    ],
+    "name": "setAddress",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

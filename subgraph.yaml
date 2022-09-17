@@ -29,7 +29,7 @@ dataSources:
     name: Profiles
     network: xdai
     source:
-      address: "0xcEFA613288CD72783C36e3a3a9Dd0645dF292b15"
+      address: "0xa22b9D3462ad1F66E29C3Ac3eb9f005EDB3A5A23"
       abi: Profiles
       startBlock: 24010423
     mapping:
@@ -42,20 +42,20 @@ dataSources:
         - name: Profiles
           file: ./abis/Profiles.json
       eventHandlers:
-        - event: Avatar(indexed address,string)
+        - event: AvatarChanged(indexed address,string)
           handler: handleAvatar
-        - event: Description(indexed address,string)
+        - event: DescriptionChanged(indexed address,string)
           handler: handleDescription
-        - event: Nickname(indexed address,string)
+        - event: NicknameChanged(indexed address,string)
           handler: handleNickname
       file: ./src/profiles.ts
   - kind: ethereum
     name: Forums
     network: xdai
     source:
-      address: "0x151db52ADb5AE7878e5F10b87c1a00b8Fa41eA1a"
+      address: "0x43Bc2872BE3E8D3807c28Cc380a00102984be943"
       abi: Forums
-      startBlock: 24049395
+      startBlock: 24226134
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -66,16 +66,18 @@ dataSources:
         - name: Forums
           file: ./abis/Forums.json
       eventHandlers:
-        - event: Avatar(string,string)
+        - event: AvatarChanged(string,string)
           handler: handleAvatar
-        - event: Description(string,string)
+        - event: DescriptionChanged(string,string)
           handler: handleDescription
-        - event: NSFW(string,bool)
+        - event: NSFWChanged(string,bool)
           handler: handleNSFW
-        - event: Ownership(string,indexed address)
+        - event: OwnershipChanged(string,indexed address)
           handler: handleOwnership
-        - event: Promoted(string,indexed address)
+        - event: AddressChanged(string,indexed address)
+          handler: handleAddress
+        - event: ModeratorPromoted(string,indexed address)
           handler: handlePromoted
-        - event: Unpromoted(string,indexed address)
+        - event: ModeratorUnpromoted(string,indexed address)
           handler: handleUnpromoted
       file: ./src/forums.ts
