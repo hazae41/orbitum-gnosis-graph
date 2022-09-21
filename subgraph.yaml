@@ -53,9 +53,9 @@ dataSources:
     name: Forums
     network: xdai
     source:
-      address: "0x43Bc2872BE3E8D3807c28Cc380a00102984be943"
+      address: "0x811b2B0Ccf220eafA06296eFc4df47A7218c80B5"
       abi: Forums
-      startBlock: 24226134
+      startBlock: 24279912
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -74,8 +74,6 @@ dataSources:
           handler: handleNSFW
         - event: OwnershipChanged(string,indexed address)
           handler: handleOwnership
-        - event: AddressChanged(string,indexed address)
-          handler: handleAddress
         - event: ModeratorPromoted(string,indexed address)
           handler: handlePromoted
         - event: ModeratorUnpromoted(string,indexed address)

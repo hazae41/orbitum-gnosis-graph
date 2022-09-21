@@ -9,25 +9,6 @@
         "type": "string"
       },
       {
-        "indexed": true,
-        "internalType": "address",
-        "name": "addr",
-        "type": "address"
-      }
-    ],
-    "name": "AddressChanged",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "name",
-        "type": "string"
-      },
-      {
         "indexed": false,
         "internalType": "string",
         "name": "avatar",
@@ -146,24 +127,6 @@
       }
     ],
     "name": "promote",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "name",
-        "type": "string"
-      },
-      {
-        "internalType": "address",
-        "name": "addr",
-        "type": "address"
-      }
-    ],
-    "name": "setAddress",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

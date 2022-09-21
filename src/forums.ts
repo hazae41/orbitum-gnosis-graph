@@ -1,4 +1,4 @@
-import { AddressChanged, AvatarChanged, DescriptionChanged, ModeratorPromoted, ModeratorUnpromoted, NSFWChanged, OwnershipChanged } from "../generated/Forums/Forums"
+import { AvatarChanged, DescriptionChanged, ModeratorPromoted, ModeratorUnpromoted, NSFWChanged, OwnershipChanged } from "../generated/Forums/Forums"
 import { getOrCreateForumFromName } from "./entities/forum"
 
 export function handleAvatar(event: AvatarChanged): void {
@@ -30,14 +30,6 @@ export function handleOwnership(event: OwnershipChanged): void {
   const owner = event.params.owner.toHex()
 
   forum.owner = owner
-  forum.save()
-}
-
-export function handleAddress(event: AddressChanged): void {
-  const forum = getOrCreateForumFromName(event.params.name, event.block.timestamp)
-  const address = event.params.addr.toHex()
-
-  forum.address = address
   forum.save()
 }
 
