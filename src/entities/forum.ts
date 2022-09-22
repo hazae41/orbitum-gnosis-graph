@@ -8,6 +8,7 @@ export function getOrCreateForumFromName(name: string, time: BigInt): Forum {
   forum = new Forum(name)
 
   forum.name = name
+  forum.nsfw = false
   forum.mods = []
   forum.count = 0
   forum.created = time

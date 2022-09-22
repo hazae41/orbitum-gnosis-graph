@@ -1,5 +1,6 @@
-import { Created, Replied } from "../generated/Gateway/Gateway"
+import { BigInt } from "@graphprotocol/graph-ts"
 import { Forum, Post, Topic } from "../generated/schema"
+import { Created, LockChanged, NSFWChanged, PinChanged, Removed, Renamed, Replied } from "../generated/Topics/Topics"
 import { getOrCreateForumFromName } from "./entities/forum"
 import { getOrCreateProfileFromAddress } from "./entities/profile"
 
@@ -8,7 +9,7 @@ export function handleCreated(event: Created): void {
   const postid = event.params.post.toString()
   const authorid = event.params.author.toHex()
   const forumid = event.params.forum
-  const time = event.params.time
+  const time = event.block.timestamp.times(BigInt.fromU32(1000))
   const title = event.params.title
   const text = event.params.text
 
@@ -56,7 +57,7 @@ export function handleReplied(event: Replied): void {
   const topicid = event.params.topic.toString()
   const postid = event.params.post.toString()
   const authorid = event.params.author.toHex()
-  const time = event.params.time
+  const time = event.block.timestamp.times(BigInt.fromU32(1000))
   const text = event.params.text
 
   if (Post.load(postid)) return
@@ -96,4 +97,69 @@ export function handleReplied(event: Replied): void {
   author.save()
 }
 
+export function handleRenamed(event: Renamed): void {
+  const topicid = event.params.topic.toString()
+  const title = event.params.title
 
+  const topic = Topic.load(topicid)
+  if (!topic) return
+
+  topic.title = title
+
+  topic.save()
+}
+
+export function handleRemoved(event: Removed): void {
+  const postid = event.params.post.toString()
+
+  const post = Post.load(postid)
+  if (!post) return
+
+  const topic = Topic.load(post.topic)
+  if (!topic) return
+
+  if (topic.first === post.id) {
+    topic.hidden = true
+  }
+
+  post.hidden = true
+
+  post.save()
+  topic.save()
+}
+
+export function handleNSFWChanged(event: NSFWChanged): void {
+  const topicid = event.params.topic.toString()
+  const nsfw = event.params.nsfw
+
+  const topic = Topic.load(topicid)
+  if (!topic) return
+
+  topic.nsfw = nsfw
+
+  topic.save()
+}
+
+export function handleLockChanged(event: LockChanged): void {
+  const topicid = event.params.topic.toString()
+  const locked = event.params.locked
+
+  const topic = Topic.load(topicid)
+  if (!topic) return
+
+  topic.locked = locked
+
+  topic.save()
+}
+
+export function handlePinChanged(event: PinChanged): void {
+  const topicid = event.params.topic.toString()
+  const pinned = event.params.pinned
+
+  const topic = Topic.load(topicid)
+  if (!topic) return
+
+  topic.pinned = pinned
+
+  topic.save()
+}

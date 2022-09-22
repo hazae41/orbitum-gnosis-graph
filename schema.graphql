@@ -1,44 +1,49 @@
 type Profile @entity {
   id: ID!
   address: String!
-  nickname: String
-  avatar: String
-  description: String
   count: Int!
   created: BigInt!
   updated: BigInt!
+  nickname: String
+  avatar: String
+  description: String
 }
 
 type Forum @entity {
   id: ID!
   name: String!
-  avatar: String
-  description: String
-  nsfw: Boolean,
-  owner: Profile
-  mods: [Profile!]!
+  nsfw: Boolean!
   count: Int!
   created: BigInt!
   updated: BigInt!
+  mods: [Profile!]!
+  avatar: String
+  description: String
+  owner: Profile
 }
 
 type Topic @entity {
   id: ID!
-  forum: Forum
-  author: Profile
+  forum: Forum!
+  author: Profile!
   title: String!
+  nsfw: Boolean!
+  locked: Boolean!
+  pinned: Boolean!
   first: Post!
   last: Post!
   count: Int!
   created: BigInt!
   updated: BigInt!
+  hidden: Boolean!
 }
 
 type Post @entity {
   id: ID!
-  forum: Forum
-  topic: Topic
-  author: Profile
+  forum: Forum!
+  topic: Topic!
+  author: Profile!
   text: String!
   created: BigInt!
+  hidden: Boolean!
 }
