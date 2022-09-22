@@ -6,6 +6,7 @@ export function handleNickname(event: NicknameChanged): void {
   const nickname = event.params.nickname
 
   profile.nickname = nickname
+
   profile.save()
 }
 
@@ -14,6 +15,7 @@ export function handleAvatar(event: AvatarChanged): void {
   const avatar = event.params.avatar
 
   profile.avatar = avatar
+
   profile.save()
 }
 
@@ -22,5 +24,6 @@ export function handleDescription(event: DescriptionChanged): void {
   const description = event.params.description
 
   profile.description = description
+
   profile.save()
 }
