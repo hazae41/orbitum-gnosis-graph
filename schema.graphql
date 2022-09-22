@@ -25,6 +25,8 @@ type Profile @entity {
   hcount: Int!
   created: BigInt!
   updated: BigInt!
+  badged: Boolean!
+  random: Boolean!
   nickname: String
   avatar: String
   description: String

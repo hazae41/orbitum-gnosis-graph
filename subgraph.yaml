@@ -31,9 +31,9 @@ dataSources:
     name: Profiles
     network: xdai
     source:
-      address: "0xa22b9D3462ad1F66E29C3Ac3eb9f005EDB3A5A23"
+      address: "0xbe287F236aFfb4D8e9CaD726dd9c17203Aec5828"
       abi: Profiles
-      startBlock: 24226173
+      startBlock: 24296970
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -50,6 +50,10 @@ dataSources:
           handler: handleDescription
         - event: NicknameChanged(indexed address,string)
           handler: handleNickname
+        - event: BadgedChanged(indexed address,bool)
+          handler: handleBadged
+        - event: RandomChanged(indexed address,bool)
+          handler: handleRandom
       file: ./src/profiles.ts
   - kind: ethereum
     name: Forums
