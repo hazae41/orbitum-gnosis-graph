@@ -9,6 +9,7 @@ export function getOrCreateProfileFromAddress(address: string, time: BigInt): Pr
 
   profile.address = address
   profile.count = 0
+  profile.hcount = 0
   profile.created = time
   profile.updated = time
 

@@ -11,6 +11,7 @@ export function getOrCreateForumFromName(name: string, time: BigInt): Forum {
   forum.nsfw = false
   forum.mods = []
   forum.count = 0
+  forum.hcount = 0
   forum.created = time
   forum.updated = time
 
