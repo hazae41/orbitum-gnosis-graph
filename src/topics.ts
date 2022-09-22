@@ -1,6 +1,6 @@
 import { BigInt } from "@graphprotocol/graph-ts"
 import { Forum, Post, Topic } from "../generated/schema"
-import { Created, LockChanged, NSFWChanged, PinChanged, Removed, Renamed, Replied } from "../generated/Topics/Topics"
+import { Created, LockChanged, Modified, NSFWChanged, PinChanged, Removed, Renamed, Replied } from "../generated/Topics/Topics"
 import { getOrCreateForumFromName } from "./entities/forum"
 import { getOrCreateProfileFromAddress } from "./entities/profile"
 
@@ -107,6 +107,18 @@ export function handleRenamed(event: Renamed): void {
   topic.title = title
 
   topic.save()
+}
+
+export function handleModified(event: Modified): void {
+  const postid = event.params.post.toString()
+  const text = event.params.text
+
+  const post = Post.load(postid)
+  if (!post) return
+
+  post.text = text
+
+  post.save()
 }
 
 export function handleRemoved(event: Removed): void {
