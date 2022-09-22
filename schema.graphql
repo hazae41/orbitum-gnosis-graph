@@ -68,5 +68,6 @@ type Post @entity {
   author: Profile!
   text: String!
   created: BigInt!
+  modified: BigInt
   hidden: Boolean!
 }

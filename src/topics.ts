@@ -5,11 +5,11 @@ import { getOrCreateForumFromName } from "./entities/forum"
 import { getOrCreateProfileFromAddress } from "./entities/profile"
 
 export function handleCreated(event: Created): void {
+  const time = event.block.timestamp.times(BigInt.fromU32(1000))
   const topicid = event.params.topic.toString()
   const postid = event.params.post.toString()
   const authorid = event.params.author.toHex()
   const forumid = event.params.forum
-  const time = event.block.timestamp.times(BigInt.fromU32(1000))
   const title = event.params.title
   const text = event.params.text
 
@@ -57,10 +57,10 @@ export function handleCreated(event: Created): void {
 }
 
 export function handleReplied(event: Replied): void {
+  const time = event.block.timestamp.times(BigInt.fromU32(1000))
   const topicid = event.params.topic.toString()
   const postid = event.params.post.toString()
   const authorid = event.params.author.toHex()
-  const time = event.block.timestamp.times(BigInt.fromU32(1000))
   const text = event.params.text
 
   if (Post.load(postid)) return
@@ -116,13 +116,17 @@ export function handleRenamed(event: Renamed): void {
 }
 
 export function handleModified(event: Modified): void {
+  const time = event.block.timestamp.times(BigInt.fromU32(1000))
   const postid = event.params.post.toString()
   const text = event.params.text
 
   const post = Post.load(postid)
   if (!post) return
 
-  post.text = text
+  if (post.modified === null || time > post.modified!) {
+    post.text = text
+    post.modified = time
+  }
 
   post.save()
 }
