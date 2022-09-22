@@ -21,9 +21,11 @@ export function handleCreated(event: Created): void {
   const author = getOrCreateProfileFromAddress(authorid, time)
 
   forum.count = forum.count + 1
+  forum.hcount = forum.hcount + 1
   forum.updated = time
 
   author.count = author.count + 1
+  author.hcount = author.hcount + 1
   author.updated = time
 
   topic.author = authorid
@@ -32,6 +34,7 @@ export function handleCreated(event: Created): void {
   topic.first = postid
   topic.last = postid
   topic.count = 0
+  topic.hcount = 0
   topic.created = time
   topic.updated = time
   topic.hidden = false
@@ -71,12 +74,15 @@ export function handleReplied(event: Replied): void {
   const author = getOrCreateProfileFromAddress(authorid, time)
 
   forum.count = forum.count + 1
+  forum.hcount = forum.hcount + 1
   forum.updated = time
 
   author.count = author.count + 1
+  author.hcount = author.hcount + 1
   author.updated = time
 
   topic.count = topic.count + 1
+  topic.hcount = topic.hcount + 1
 
   if (time > topic.updated) {
     topic.last = postid

@@ -85,9 +85,9 @@ dataSources:
     name: Topics
     network: xdai
     source:
-      address: "0xCE4b156C0E75AaCE3A35451De612311D6E892c89"
+      address: "0xadEc8Da23484A1552f68e2589927BF45E525edB2"
       abi: Topics
-      startBlock: 24291003
+      startBlock: 24294731
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -107,8 +107,8 @@ dataSources:
           handler: handleRenamed
         - event: Modified(indexed uint256,string)
           handler: handleModified
-        - event: Removed(indexed uint256)
-          handler: handleRemoved
+        - event: HiddenChanged(indexed uint256,bool)
+          handler: handleHiddenChanged
         - event: NSFWChanged(indexed uint256,bool)
           handler: handleNSFWChanged
         - event: LockChanged(indexed uint256,bool)

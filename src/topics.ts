@@ -1,6 +1,6 @@
 import { BigInt } from "@graphprotocol/graph-ts"
-import { Forum, Post, Topic } from "../generated/schema"
-import { Created, LockChanged, Modified, NSFWChanged, PinChanged, Removed, Renamed, Replied } from "../generated/Topics/Topics"
+import { Forum, Post, Profile, Topic } from "../generated/schema"
+import { Created, HiddenChanged, LockChanged, Modified, NSFWChanged, PinChanged, Renamed, Replied } from "../generated/Topics/Topics"
 import { getOrCreateForumFromName } from "./entities/forum"
 import { getOrCreateProfileFromAddress } from "./entities/profile"
 
@@ -22,9 +22,11 @@ export function handleCreated(event: Created): void {
   const author = getOrCreateProfileFromAddress(authorid, time)
 
   forum.count = forum.count + 1
+  forum.hcount = forum.hcount + 1
   forum.updated = time
 
   author.count = author.count + 1
+  author.hcount = author.hcount + 1
   author.updated = time
 
   topic.author = authorid
@@ -33,6 +35,7 @@ export function handleCreated(event: Created): void {
   topic.first = postid
   topic.last = postid
   topic.count = 0
+  topic.hcount = 0
   topic.created = time
   topic.updated = time
   topic.hidden = false
@@ -72,12 +75,15 @@ export function handleReplied(event: Replied): void {
   const author = getOrCreateProfileFromAddress(authorid, time)
 
   forum.count = forum.count + 1
+  forum.hcount = forum.hcount + 1
   forum.updated = time
 
   author.count = author.count + 1
+  author.hcount = author.hcount + 1
   author.updated = time
 
   topic.count = topic.count + 1
+  topic.hcount = topic.hcount + 1
 
   if (time > topic.updated) {
     topic.last = postid
@@ -121,8 +127,9 @@ export function handleModified(event: Modified): void {
   post.save()
 }
 
-export function handleRemoved(event: Removed): void {
+export function handleHiddenChanged(event: HiddenChanged): void {
   const postid = event.params.post.toString()
+  const hidden = event.params.hidden
 
   const post = Post.load(postid)
   if (!post) return
@@ -130,11 +137,36 @@ export function handleRemoved(event: Removed): void {
   const topic = Topic.load(post.topic)
   if (!topic) return
 
-  if (topic.first == post.id) {
-    topic.hidden = true
+  if (topic.first == post.id && topic.hidden != hidden) {
+    const forum = Forum.load(topic.forum)
+    if (!forum) return
+
+    const operator = Profile.load(topic.author)
+    if (!operator) return
+
+    if (hidden) {
+      topic.hidden = true
+      forum.count = forum.count - 1
+      operator.count = operator.count - 1
+    } else {
+      topic.hidden = false
+      forum.count = forum.count + 1
+      operator.count = operator.count + 1
+    }
+
+    forum.save()
+    operator.save()
   }
 
-  post.hidden = true
+  if (post.hidden != hidden) {
+    if (hidden) {
+      post.hidden = true
+      topic.count = topic.count - 1
+    } else {
+      post.hidden = false
+      topic.count = topic.count + 1
+    }
+  }
 
   post.save()
   topic.save()

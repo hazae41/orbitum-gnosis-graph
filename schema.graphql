@@ -22,6 +22,7 @@ type Profile @entity {
   id: ID!
   address: String!
   count: Int!
+  hcount: Int!
   created: BigInt!
   updated: BigInt!
   nickname: String
@@ -34,6 +35,7 @@ type Forum @entity {
   name: String!
   nsfw: Boolean!
   count: Int!
+  hcount: Int!
   created: BigInt!
   updated: BigInt!
   mods: [Profile!]!
@@ -53,6 +55,7 @@ type Topic @entity {
   first: Post!
   last: Post!
   count: Int!
+  hcount: Int!
   created: BigInt!
   updated: BigInt!
   hidden: Boolean!
