@@ -1,3 +1,23 @@
+type _Schema_
+  @fulltext(
+    name: "topicSearch"
+    language: en
+    algorithm: rank
+    include: [{ entity: "Topic", fields: [{ name: "title" }] }]
+  )
+  @fulltext(
+    name: "forumSearch"
+    language: en
+    algorithm: rank
+    include: [{ entity: "Forum", fields: [{ name: "name" }] }]
+  )
+  @fulltext(
+    name: "profileSearch"
+    language: en
+    algorithm: rank
+    include: [{ entity: "Profile", fields: [{ name: "address" }, { name: "nickname" }] }]
+  )
+
 type Profile @entity {
   id: ID!
   address: String!
