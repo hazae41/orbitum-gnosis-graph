@@ -130,7 +130,7 @@ export function handleRemoved(event: Removed): void {
   const topic = Topic.load(post.topic)
   if (!topic) return
 
-  if (topic.first === post.id) {
+  if (topic.first == post.id) {
     topic.hidden = true
   }
 

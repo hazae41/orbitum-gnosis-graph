@@ -52,7 +52,7 @@ export function handleUnpromoted(event: ModeratorUnpromoted): void {
   const mods2 = new Array<string>(mods.length)
 
   for (let i = 0; i < mods.length; i++)
-    if (mods[i] !== moderator)
+    if (mods[i] != moderator)
       mods2.push(mods[i])
 
   forum.mods = mods2
