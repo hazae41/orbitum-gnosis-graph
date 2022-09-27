@@ -83,12 +83,12 @@ export function handleReplied(event: Replied): void {
   author.updated = time
 
   notify(author, `{
-    type: "reply", 
-    time: "${time.toString()}", 
-    author: "${authorid}", 
-    forum: "${topic.forum}", 
-    topic: "${topicid}", 
-    post: "${postid}" 
+    "type": "reply", 
+    "time": "${time.toString()}", 
+    "author": "${authorid}", 
+    "forum": "${topic.forum}", 
+    "topic": "${topicid}", 
+    "post": "${postid}"
   }`)
 
   topic.count = topic.count + 1
