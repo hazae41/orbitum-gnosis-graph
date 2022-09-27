@@ -2,7 +2,7 @@ import { BigInt } from "@graphprotocol/graph-ts"
 import { Forum, Post, Profile, Topic } from "../generated/schema"
 import { Created, HiddenChanged, LockChanged, Modified, NSFWChanged, PinChanged, Renamed, Replied } from "../generated/Topics/Topics"
 import { getOrCreateForumFromName } from "./entities/forum"
-import { getOrCreateProfileFromAddress } from "./entities/profile"
+import { getOrCreateProfileFromAddress, notify } from "./entities/profile"
 
 export function handleCreated(event: Created): void {
   const time = event.block.timestamp.times(BigInt.fromU32(1000))
@@ -81,6 +81,15 @@ export function handleReplied(event: Replied): void {
   author.count = author.count + 1
   author.hcount = author.hcount + 1
   author.updated = time
+
+  notify(author, `{
+    type: "reply", 
+    time: "${time.toString()}", 
+    author: "${authorid}", 
+    forum: "${topic.forum}", 
+    topic: "${topicid}", 
+    post: "${postid}" 
+  }`)
 
   topic.count = topic.count + 1
   topic.hcount = topic.hcount + 1

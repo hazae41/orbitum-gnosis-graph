@@ -19,3 +19,12 @@ export function getOrCreateProfileFromAddress(address: string, time: BigInt): Pr
 
   return profile
 }
+
+export function notify(profile: Profile, notification: string): void {
+  const notifications = profile.notifications
+
+  notifications.push(notification)
+
+  profile.notifications = notifications
+  profile.save()
+}

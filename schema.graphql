@@ -30,6 +30,7 @@ type Profile @entity {
   nickname: String
   avatar: String
   description: String
+  notifications: [String!]!
 }
 
 type Forum @entity {

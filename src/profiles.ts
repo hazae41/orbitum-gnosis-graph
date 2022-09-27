@@ -1,3 +1,4 @@
+import { Seen } from "../generated/Notifs/Notifs"
 import { AvatarChanged, BadgedChanged, DescriptionChanged, NicknameChanged, RandomChanged } from "../generated/Profiles/Profiles"
 import { getOrCreateProfileFromAddress } from "./entities/profile"
 
@@ -42,6 +43,14 @@ export function handleRandom(event: RandomChanged): void {
   const random = event.params.random
 
   profile.random = random
+
+  profile.save()
+}
+
+export function handleSeen(event: Seen): void {
+  const profile = getOrCreateProfileFromAddress(event.params.id.toHex(), event.block.timestamp)
+
+  profile.notifications = []
 
   profile.save()
 }

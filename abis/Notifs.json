@@ -1,0 +1,41 @@
+[
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "id",
+				"type": "address"
+			}
+		],
+		"name": "see",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "id",
+				"type": "address"
+			}
+		],
+		"name": "Seen",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "relayer2",
+				"type": "address"
+			}
+		],
+		"name": "transfer",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	}
+]

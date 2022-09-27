@@ -120,3 +120,23 @@ dataSources:
         - event: PinChanged(indexed uint256,bool)
           handler: handlePinChanged
       file: ./src/topics.ts
+  - kind: ethereum
+    name: Notifs
+    network: xdai
+    source:
+      address: "0x58fF78B80C9CB40CD2167f82Ab646A6946FCeEdF"
+      abi: Notifs
+      startBlock: 24366943
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Profile
+      abis:
+        - name: Notifs
+          file: ./abis/Notifs.json
+      eventHandlers:
+        - event: Seen(indexed address)
+          handler: handleSeen
+      file: ./src/profiles.ts
