@@ -18,6 +18,19 @@ type _Schema_
     include: [{ entity: "Profile", fields: [{ name: "address" }, { name: "nickname" }] }]
   )
 
+type Counter @entity {
+  id: ID!
+  notification: Int!
+}
+
+type Notification @entity {
+  id: ID!
+  to: Profile!
+  type: String!
+  time: BigInt!
+  data: String!
+}
+
 type Profile @entity {
   id: ID!
   address: String!
@@ -25,12 +38,12 @@ type Profile @entity {
   hcount: Int!
   created: BigInt!
   updated: BigInt!
+  seen: BigInt!
   badged: Boolean!
   random: Boolean!
   nickname: String
   avatar: String
   description: String
-  notifications: [String!]!
 }
 
 type Forum @entity {

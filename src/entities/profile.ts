@@ -14,18 +14,9 @@ export function getOrCreateProfileFromAddress(address: string, time: BigInt): Pr
   profile.updated = time
   profile.badged = false
   profile.random = false
-  profile.notifications = []
+  profile.seen = BigInt.zero()
 
   profile.save()
 
   return profile
-}
-
-export function notify(profile: Profile, notification: string): void {
-  const notifications = profile.notifications
-
-  notifications.push(notification)
-
-  profile.notifications = notifications
-  profile.save()
 }

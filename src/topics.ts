@@ -2,7 +2,8 @@ import { BigInt } from "@graphprotocol/graph-ts"
 import { Forum, Post, Profile, Topic } from "../generated/schema"
 import { Created, HiddenChanged, LockChanged, Modified, NSFWChanged, PinChanged, Renamed, Replied } from "../generated/Topics/Topics"
 import { getOrCreateForumFromName } from "./entities/forum"
-import { getOrCreateProfileFromAddress, notify } from "./entities/profile"
+import { createNotification } from "./entities/notification"
+import { getOrCreateProfileFromAddress } from "./entities/profile"
 
 export function handleCreated(event: Created): void {
   const time = event.block.timestamp.times(BigInt.fromU32(1000))
@@ -73,7 +74,6 @@ export function handleReplied(event: Replied): void {
   if (!forum) return
 
   const author = getOrCreateProfileFromAddress(authorid, time)
-
   forum.count = forum.count + 1
   forum.hcount = forum.hcount + 1
   forum.updated = time
@@ -82,9 +82,7 @@ export function handleReplied(event: Replied): void {
   author.hcount = author.hcount + 1
   author.updated = time
 
-  notify(author, `{
-    "type": "reply", 
-    "time": "${time.toString()}", 
+  createNotification(topic.author, "reply", time, `{
     "author": "${authorid}", 
     "forum": "${topic.forum}", 
     "topic": "${topicid}", 

@@ -1,9 +1,11 @@
+import { BigInt } from "@graphprotocol/graph-ts"
 import { Seen } from "../generated/Notifs/Notifs"
 import { AvatarChanged, BadgedChanged, DescriptionChanged, NicknameChanged, RandomChanged } from "../generated/Profiles/Profiles"
 import { getOrCreateProfileFromAddress } from "./entities/profile"
 
 export function handleNickname(event: NicknameChanged): void {
-  const profile = getOrCreateProfileFromAddress(event.params.id.toHex(), event.block.timestamp)
+  const time = event.block.timestamp.times(BigInt.fromU32(1000))
+  const profile = getOrCreateProfileFromAddress(event.params.id.toHex(), time)
   const nickname = event.params.nickname
 
   profile.nickname = nickname
@@ -12,7 +14,8 @@ export function handleNickname(event: NicknameChanged): void {
 }
 
 export function handleAvatar(event: AvatarChanged): void {
-  const profile = getOrCreateProfileFromAddress(event.params.id.toHex(), event.block.timestamp)
+  const time = event.block.timestamp.times(BigInt.fromU32(1000))
+  const profile = getOrCreateProfileFromAddress(event.params.id.toHex(), time)
   const avatar = event.params.avatar
 
   profile.avatar = avatar
@@ -21,7 +24,8 @@ export function handleAvatar(event: AvatarChanged): void {
 }
 
 export function handleDescription(event: DescriptionChanged): void {
-  const profile = getOrCreateProfileFromAddress(event.params.id.toHex(), event.block.timestamp)
+  const time = event.block.timestamp.times(BigInt.fromU32(1000))
+  const profile = getOrCreateProfileFromAddress(event.params.id.toHex(), time)
   const description = event.params.description
 
   profile.description = description
@@ -30,7 +34,8 @@ export function handleDescription(event: DescriptionChanged): void {
 }
 
 export function handleBadged(event: BadgedChanged): void {
-  const profile = getOrCreateProfileFromAddress(event.params.id.toHex(), event.block.timestamp)
+  const time = event.block.timestamp.times(BigInt.fromU32(1000))
+  const profile = getOrCreateProfileFromAddress(event.params.id.toHex(), time)
   const badged = event.params.badged
 
   profile.badged = badged
@@ -48,9 +53,10 @@ export function handleRandom(event: RandomChanged): void {
 }
 
 export function handleSeen(event: Seen): void {
-  const profile = getOrCreateProfileFromAddress(event.params.id.toHex(), event.block.timestamp)
+  const time = event.block.timestamp.times(BigInt.fromU32(1000))
+  const profile = getOrCreateProfileFromAddress(event.params.id.toHex(), time)
 
-  profile.notifications = []
+  profile.seen = time
 
   profile.save()
 }
