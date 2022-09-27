@@ -14,6 +14,7 @@ export function getOrCreateProfileFromAddress(address: string, time: BigInt): Pr
   profile.updated = time
   profile.badged = false
   profile.random = false
+  profile.notifications = []
 
   profile.save()
 
