@@ -23,12 +23,18 @@ type Counter @entity {
   notification: Int!
 }
 
-type Notification @entity {
+interface Notification {
   id: ID!
   to: Profile!
-  type: String!
   time: BigInt!
-  data: String!
+}
+
+type ReplyNotification implements Notification @entity {
+  id: ID!
+  to: Profile!
+  time: BigInt!
+  topic: Topic!
+  post: Post!
 }
 
 type Profile @entity {

@@ -1,18 +1,18 @@
 import { BigInt } from "@graphprotocol/graph-ts"
-import { Notification } from "../../generated/schema"
+import { Post, ReplyNotification, Topic } from "../../generated/schema"
 import { getOrCreateCounter } from "./counter"
 
-export function createNotification(to: string, type: string, time: BigInt, data: string): void {
+export function createReplyNotification(to: string, time: BigInt, topic: Topic, post: Post): void {
   const counter = getOrCreateCounter()
 
   counter.notification = counter.notification + 1
 
-  const notification = new Notification(counter.notification.toString())
+  const notification = new ReplyNotification(counter.notification.toString())
 
   notification.to = to
-  notification.type = type
   notification.time = time
-  notification.data = data
+  notification.topic = topic.id
+  notification.post = post.id
 
   notification.save()
   counter.save()

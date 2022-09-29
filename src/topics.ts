@@ -2,7 +2,7 @@ import { BigInt } from "@graphprotocol/graph-ts"
 import { Forum, Post, Profile, Topic } from "../generated/schema"
 import { Created, HiddenChanged, LockChanged, Modified, NSFWChanged, PinChanged, Renamed, Replied } from "../generated/Topics/Topics"
 import { getOrCreateForumFromName } from "./entities/forum"
-import { createNotification } from "./entities/notification"
+import { createReplyNotification } from "./entities/notification"
 import { getOrCreateProfileFromAddress } from "./entities/profile"
 
 export function handleCreated(event: Created): void {
@@ -82,12 +82,7 @@ export function handleReplied(event: Replied): void {
   author.hcount = author.hcount + 1
   author.updated = time
 
-  createNotification(topic.author, "reply", time, `{
-    "author": "${authorid}", 
-    "forum": "${topic.forum}", 
-    "topic": "${topicid}", 
-    "post": "${postid}"
-  }`)
+  createReplyNotification(topic.author, time, topic, post)
 
   topic.count = topic.count + 1
   topic.hcount = topic.hcount + 1
