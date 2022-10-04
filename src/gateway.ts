@@ -48,6 +48,8 @@ export function handleCreated(event: Created): void {
   post.text = text
   post.created = time
   post.hidden = false
+  post.count = 0
+  post.hcount = 0
 
   topic.save()
   post.save()
@@ -95,6 +97,8 @@ export function handleReplied(event: Replied): void {
   post.text = text
   post.created = time
   post.hidden = false
+  post.count = 0
+  post.hcount = 0
 
   topic.save()
   post.save()

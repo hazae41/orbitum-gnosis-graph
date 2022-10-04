@@ -121,6 +121,41 @@ dataSources:
           handler: handlePinChanged
       file: ./src/topics.ts
   - kind: ethereum
+    name: Topics2
+    network: xdai
+    source:
+      address: "0x59b20d21F5aD4821E0f1E113c3cE709746D9E37B"
+      abi: Topics2
+      startBlock: 24459608
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Topic
+        - Post
+      abis:
+        - name: Topics2
+          file: ./abis/Topics2.json
+      eventHandlers:
+        - event: Created(indexed uint256,indexed uint256,indexed address,string,string,string)
+          handler: handleCreated
+        - event: Replied(indexed uint256,indexed uint256,indexed address,string)
+          handler: handleReplied
+        - event: Renamed(indexed uint256,string)
+          handler: handleRenamed
+        - event: Modified(indexed uint256,string)
+          handler: handleModified
+        - event: HiddenChanged(indexed uint256,bool)
+          handler: handleHiddenChanged
+        - event: NSFWChanged(indexed uint256,bool)
+          handler: handleNSFWChanged
+        - event: LockChanged(indexed uint256,bool)
+          handler: handleLockChanged
+        - event: PinChanged(indexed uint256,bool)
+          handler: handlePinChanged
+      file: ./src/topics2.ts
+  - kind: ethereum
     name: Notifs
     network: xdai
     source:

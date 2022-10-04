@@ -1,6 +1,6 @@
 import { BigInt } from "@graphprotocol/graph-ts"
 import { Forum, Post, Profile, Topic } from "../generated/schema"
-import { Created, HiddenChanged, LockChanged, Modified, NSFWChanged, PinChanged, Renamed, Replied } from "../generated/Topics/Topics"
+import { Created, HiddenChanged, LockChanged, Modified, NSFWChanged, PinChanged, Renamed, Replied } from "../generated/Topics2/Topics2"
 import { getOrCreateForumFromName } from "./entities/forum"
 import { createReplyNotification } from "./entities/notification"
 import { getOrCreateProfileFromAddress } from "./entities/profile"
@@ -61,7 +61,7 @@ export function handleCreated(event: Created): void {
 
 export function handleReplied(event: Replied): void {
   const time = event.block.timestamp.times(BigInt.fromU32(1000))
-  const topicid = event.params.topic.toString()
+  const parentid = event.params.parent.toString()
   const postid = event.params.post.toString()
   const authorid = event.params.author.toHex()
   const text = event.params.text
@@ -69,7 +69,10 @@ export function handleReplied(event: Replied): void {
   if (Post.load(postid)) return
   const post = new Post(postid)
 
-  const topic = Topic.load(topicid)
+  const parent = Post.load(parentid)
+  if (!parent) return
+
+  const topic = Topic.load(parent.topic)
   if (!topic) return
 
   const forum = Forum.load(topic.forum)
@@ -94,8 +97,12 @@ export function handleReplied(event: Replied): void {
     topic.updated = time
   }
 
-  post.topic = topicid
-  post.author = authorid
+  parent.count = parent.count + 1
+  parent.hcount = parent.hcount + 1
+
+  post.parent = parent.id
+  post.topic = topic.id
+  post.author = author.id
   post.forum = forum.id
   post.text = text
   post.created = time
@@ -104,6 +111,7 @@ export function handleReplied(event: Replied): void {
   post.hcount = 0
 
   topic.save()
+  parent.save()
   post.save()
   forum.save()
   author.save()

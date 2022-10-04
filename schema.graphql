@@ -92,4 +92,7 @@ type Post @entity {
   created: BigInt!
   modified: BigInt
   hidden: Boolean!
+  parent: Post
+  count: Int!
+  hcount: Int!
 }
