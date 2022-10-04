@@ -1,8 +1,8 @@
 import { BigInt } from "@graphprotocol/graph-ts"
 import { Forum, Post, Profile, Topic } from "../generated/schema"
-import { Created, HiddenChanged, LockChanged, Modified, NSFWChanged, PinChanged, Renamed, Replied } from "../generated/Topics/Topics"
+import { Created, HiddenChanged, LockChanged, Modified, NSFWChanged, PinChanged, Quoted, Renamed, Replied } from "../generated/Topics2/Topics2"
 import { getOrCreateForumFromName } from "./entities/forum"
-import { createReplyNotification } from "./entities/notification"
+import { createQuoteNotification, createReplyNotification } from "./entities/notification"
 import { getOrCreateProfileFromAddress } from "./entities/profile"
 
 export function handleCreated(event: Created): void {
@@ -84,8 +84,6 @@ export function handleReplied(event: Replied): void {
   author.hcount = author.hcount + 1
   author.updated = time
 
-  createReplyNotification(topic.author, time, topic, post)
-
   topic.count = topic.count + 1
   topic.hcount = topic.hcount + 1
 
@@ -103,7 +101,75 @@ export function handleReplied(event: Replied): void {
   post.count = 0
   post.hcount = 0
 
+  if (topic.author != post.author) {
+    createReplyNotification(topic.author, time, topic, post)
+  }
+
   topic.save()
+  post.save()
+  forum.save()
+  author.save()
+}
+
+export function handleQuoted(event: Quoted): void {
+  const time = event.block.timestamp.times(BigInt.fromU32(1000))
+  const parentid = event.params.parent.toString()
+  const postid = event.params.post.toString()
+  const authorid = event.params.author.toHex()
+  const text = event.params.text
+
+  if (Post.load(postid)) return
+  const post = new Post(postid)
+
+  const parent = Post.load(parentid)
+  if (!parent) return
+
+  const topic = Topic.load(parent.topic)
+  if (!topic) return
+
+  const forum = Forum.load(topic.forum)
+  if (!forum) return
+
+  const author = getOrCreateProfileFromAddress(authorid, time)
+  forum.count = forum.count + 1
+  forum.hcount = forum.hcount + 1
+  forum.updated = time
+
+  author.count = author.count + 1
+  author.hcount = author.hcount + 1
+  author.updated = time
+
+  topic.count = topic.count + 1
+  topic.hcount = topic.hcount + 1
+
+  if (time > topic.updated) {
+    topic.last = postid
+    topic.updated = time
+  }
+
+  parent.count = parent.count + 1
+  parent.hcount = parent.hcount + 1
+
+  post.parent = parent.id
+  post.topic = topic.id
+  post.author = author.id
+  post.forum = forum.id
+  post.text = text
+  post.created = time
+  post.hidden = false
+  post.count = 0
+  post.hcount = 0
+
+  if (topic.author != post.author) {
+    createReplyNotification(topic.author, time, topic, post)
+  }
+
+  if (topic.author != parent.author && parent.author != post.author) {
+    createQuoteNotification(parent.author, time, topic, post)
+  }
+
+  topic.save()
+  parent.save()
   post.save()
   forum.save()
   author.save()

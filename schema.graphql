@@ -37,6 +37,14 @@ type ReplyNotification implements Notification @entity {
   post: Post!
 }
 
+type QuoteNotification implements Notification @entity {
+  id: ID!
+  to: Profile!
+  time: BigInt!
+  topic: Topic!
+  post: Post!
+}
+
 type Profile @entity {
   id: ID!
   address: String!
