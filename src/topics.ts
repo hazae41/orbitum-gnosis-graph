@@ -52,6 +52,7 @@ export function handleCreated(event: Created): void {
   post.hidden = false
   post.count = 0
   post.hcount = 0
+  post.donations = []
 
   topic.save()
   post.save()
@@ -100,10 +101,10 @@ export function handleReplied(event: Replied): void {
   post.hidden = false
   post.count = 0
   post.hcount = 0
+  post.donations = []
 
-  if (topic.author != post.author) {
+  if (topic.author != post.author)
     createReplyNotification(topic.author, time, topic, post)
-  }
 
   topic.save()
   post.save()
@@ -159,14 +160,13 @@ export function handleQuoted(event: Quoted): void {
   post.hidden = false
   post.count = 0
   post.hcount = 0
+  post.donations = []
 
-  if (topic.author != post.author) {
+  if (topic.author != post.author)
     createReplyNotification(topic.author, time, topic, post)
-  }
 
-  if (topic.author != parent.author && parent.author != post.author) {
+  if (topic.author != parent.author && parent.author != post.author)
     createQuoteNotification(parent.author, time, topic, post)
-  }
 
   topic.save()
   parent.save()

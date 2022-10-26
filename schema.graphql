@@ -21,6 +21,7 @@ type _Schema_
 type Counter @entity {
   id: ID!
   notification: Int!
+  donation: Int!
 }
 
 interface Notification {
@@ -43,6 +44,14 @@ type QuoteNotification implements Notification @entity {
   time: BigInt!
   topic: Topic!
   post: Post!
+}
+
+type Donation @entity {
+  id: ID!
+  time: BigInt!
+  post: Post!
+  donator: Profile!
+  amount: BigInt!
 }
 
 type Profile @entity {
@@ -103,4 +112,5 @@ type Post @entity {
   parent: Post
   count: Int!
   hcount: Int!
+  donations: [Donation!]!
 }

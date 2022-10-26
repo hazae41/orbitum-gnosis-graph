@@ -7,6 +7,7 @@ export function getOrCreateCounter(): Counter {
   counter = new Counter("0")
 
   counter.notification = 0
+  counter.donation = 0
 
   return counter
 }

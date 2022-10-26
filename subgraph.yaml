@@ -177,3 +177,23 @@ dataSources:
         - event: Seen(indexed address)
           handler: handleSeen
       file: ./src/profiles.ts
+  - kind: ethereum
+    name: Donations
+    network: xdai
+    source:
+      address: "0x7507c73de288c90a10cd3b82f87020d28fe23a3b"
+      abi: Donations
+      startBlock: 24742022
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Post
+      abis:
+        - name: Donations
+          file: ./abis/Donations.json
+      eventHandlers:
+        - event: Donated(indexed uint256,indexed address,uint256)
+          handler: handleDonated
+      file: ./src/donations.ts

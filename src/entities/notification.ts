@@ -2,7 +2,7 @@ import { BigInt } from "@graphprotocol/graph-ts"
 import { Post, QuoteNotification, ReplyNotification, Topic } from "../../generated/schema"
 import { getOrCreateCounter } from "./counter"
 
-export function createReplyNotification(to: string, time: BigInt, topic: Topic, post: Post): void {
+export function createReplyNotification(to: string, time: BigInt, topic: Topic, post: Post): ReplyNotification {
   const counter = getOrCreateCounter()
 
   counter.notification = counter.notification + 1
@@ -16,9 +16,11 @@ export function createReplyNotification(to: string, time: BigInt, topic: Topic, 
 
   notification.save()
   counter.save()
+
+  return notification
 }
 
-export function createQuoteNotification(to: string, time: BigInt, topic: Topic, post: Post): void {
+export function createQuoteNotification(to: string, time: BigInt, topic: Topic, post: Post): QuoteNotification {
   const counter = getOrCreateCounter()
 
   counter.notification = counter.notification + 1
@@ -32,4 +34,6 @@ export function createQuoteNotification(to: string, time: BigInt, topic: Topic, 
 
   notification.save()
   counter.save()
+
+  return notification
 }

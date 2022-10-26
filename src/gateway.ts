@@ -50,6 +50,7 @@ export function handleCreated(event: Created): void {
   post.hidden = false
   post.count = 0
   post.hcount = 0
+  post.donations = []
 
   topic.save()
   post.save()
@@ -99,6 +100,7 @@ export function handleReplied(event: Replied): void {
   post.hidden = false
   post.count = 0
   post.hcount = 0
+  post.donations = []
 
   topic.save()
   post.save()
