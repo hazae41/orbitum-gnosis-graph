@@ -38,7 +38,7 @@ export function createQuoteNotification(to: string, time: BigInt, topic: Topic, 
   return notification
 }
 
-export function createDonateNotification(to: string, time: BigInt, topic: Topic, donation: Donation): DonateNotification {
+export function createDonateNotification(to: string, time: BigInt, topic: Topic, post: Post, donation: Donation): DonateNotification {
   const counter = getOrCreateCounter()
 
   counter.notification = counter.notification + 1
@@ -48,6 +48,7 @@ export function createDonateNotification(to: string, time: BigInt, topic: Topic,
   notification.to = to
   notification.time = time
   notification.topic = topic.id
+  notification.post = post.id
   notification.donation = donation.id
 
   notification.save()

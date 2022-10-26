@@ -28,7 +28,7 @@ export function handleDonated(event: Donated): void {
   post.donations = donations
 
   if (donation.donator != post.author)
-    createDonateNotification(post.author, time, topic, donation)
+    createDonateNotification(post.author, time, topic, post, donation)
 
   post.save()
 }
