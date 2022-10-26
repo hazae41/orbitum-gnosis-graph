@@ -1,5 +1,5 @@
 import { BigInt } from "@graphprotocol/graph-ts"
-import { Post, QuoteNotification, ReplyNotification, Topic } from "../../generated/schema"
+import { DonateNotification, Post, QuoteNotification, ReplyNotification, Topic } from "../../generated/schema"
 import { getOrCreateCounter } from "./counter"
 
 export function createReplyNotification(to: string, time: BigInt, topic: Topic, post: Post): ReplyNotification {
@@ -26,6 +26,24 @@ export function createQuoteNotification(to: string, time: BigInt, topic: Topic, 
   counter.notification = counter.notification + 1
 
   const notification = new QuoteNotification(counter.notification.toString())
+
+  notification.to = to
+  notification.time = time
+  notification.topic = topic.id
+  notification.post = post.id
+
+  notification.save()
+  counter.save()
+
+  return notification
+}
+
+export function createDonateNotification(to: string, time: BigInt, topic: Topic, post: Post): DonateNotification {
+  const counter = getOrCreateCounter()
+
+  counter.notification = counter.notification + 1
+
+  const notification = new DonateNotification(counter.notification.toString())
 
   notification.to = to
   notification.time = time

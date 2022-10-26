@@ -181,9 +181,9 @@ dataSources:
     name: Donations
     network: xdai
     source:
-      address: "0x7507c73de288c90a10cd3b82f87020d28fe23a3b"
+      address: "0xdb38c02e6ac5893da270723a22bcc5f994355ace"
       abi: Donations
-      startBlock: 24742022
+      startBlock: 24742661
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -194,6 +194,6 @@ dataSources:
         - name: Donations
           file: ./abis/Donations.json
       eventHandlers:
-        - event: Donated(indexed uint256,indexed address,uint256)
+        - event: Donated(string,indexed uint256,indexed address,uint256)
           handler: handleDonated
       file: ./src/donations.ts
