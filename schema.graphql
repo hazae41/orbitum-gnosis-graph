@@ -50,7 +50,7 @@ type DonateNotification implements Notification @entity {
   to: Profile!
   time: BigInt!
   topic: Topic!
-  post: Post!
+  donation: Donation!
 }
 
 type Donation @entity {
