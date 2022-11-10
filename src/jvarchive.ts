@@ -1,9 +1,19 @@
+import { BigInt } from "@graphprotocol/graph-ts"
 import { Created, Replied } from "../generated/JVArchive/JVArchive"
 import { Forum, Post, Topic } from "../generated/schema"
 import { getOrCreateForumFromName } from "./entities/forum"
 import { getOrCreateProfileFromAddress } from "./entities/profile"
 
+function getOrCreateForumFromId(id: string, time: BigInt): Forum {
+  if (id == "51")
+    return getOrCreateForumFromName("blabla", time)
+  if (id == "3011927")
+    return getOrCreateForumFromName("finance", time)
+  return getOrCreateForumFromName("blabla", time)
+}
+
 export function handleCreated(event: Created): void {
+  const forumid = event.params.forum.toString()
   const topicid = event.params.topic.toString()
   const postid = event.params.post.toString()
   const time = event.params.time
@@ -15,7 +25,7 @@ export function handleCreated(event: Created): void {
   const topic = new Topic(topicid)
   const post = new Post(postid)
 
-  const forum = getOrCreateForumFromName("blabla", time)
+  const forum = getOrCreateForumFromId(forumid, time)
   const author = getOrCreateProfileFromAddress("0x80368eDB5b3af9440864dd0dDF8eA43D59e8De2a", time)
 
   forum.count = forum.count + 1
