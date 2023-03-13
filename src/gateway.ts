@@ -38,7 +38,7 @@ export function handleCreated(event: Created): void {
   topic.created = time
   topic.updated = time
   topic.hidden = false
-  topic.nsfw = false
+  topic.nsfw = forum.nsfw
   topic.locked = false
   topic.pinned = false
 
